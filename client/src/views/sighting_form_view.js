@@ -12,6 +12,18 @@ SightingFormView.prototype.bindEvents = function () {
 
 SightingFormView.prototype.handleSubmit = function (evt) {
   evt.preventDefault();
-}
+  const newSighting = createSighting(evt.target);
+  console.dir(newSighting);
+  PubSub.publish(`SightingFormView:new-sighting`, newSighting);
+  evt.target.reset();
+};
 
 module.exports = SightingFormView;
+
+function createSighting(details) {
+  return {
+    species: details.species.value,
+    location: details.location.value,
+    date: details.date.value
+  };
+}

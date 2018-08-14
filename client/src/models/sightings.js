@@ -11,7 +11,7 @@ Sightings.prototype.bindEvents = function () {
     this.deleteSighting(evt.detail);
   });
 
-  PubSub.subscribe('SightingView:sighting-submitted', (evt) => {
+  PubSub.subscribe('SightingFormView:new-sighting', (evt) => {
     this.postSighting(evt.detail);
   })
 };
@@ -25,7 +25,12 @@ Sightings.prototype.getData = function () {
 };
 
 Sightings.prototype.postSighting = function (sighting) {
-  
+  this.request.post(sighting)
+  .then((sightings) => {
+    PubSub.publish('Sightings:data-loaded', sightings);
+  })
+  .catch(console.error);
+
 };
 
 Sightings.prototype.deleteSighting = function (sightingId) {

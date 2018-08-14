@@ -43,7 +43,6 @@ SightingView.prototype.createDeleteButton = function (sightingId) {
   button.addEventListener('click', (evt) => {
     PubSub.publish('SightingView:sighting-delete-clicked', evt.target.value);
   });
-
   return button;
 };
 
