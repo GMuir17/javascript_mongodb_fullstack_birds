@@ -13,7 +13,6 @@ SightingFormView.prototype.bindEvents = function () {
 SightingFormView.prototype.handleSubmit = function (evt) {
   evt.preventDefault();
   const newSighting = createSighting(evt.target);
-  console.dir(newSighting);
   PubSub.publish(`SightingFormView:new-sighting`, newSighting);
   evt.target.reset();
 };
